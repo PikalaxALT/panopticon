@@ -197,7 +197,12 @@ async def on_raw_message_edit(payload: discord.RawMessageUpdateEvent):
         message = await channel.get_message(payload.message_id)
         if message is None:
             return
-    handle_message(message)
+        handle_message(message)
+
+
+@bot.listen()
+async def on_message_edit(before, after):
+    handle_message(after)
 
 
 # On ready
