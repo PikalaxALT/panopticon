@@ -183,15 +183,20 @@ async def on_message(message: discord.Message):
 #   not fire the event.
 @bot.listen()
 async def on_message_edit(before: discord.Message, after: discord.Message):
-    handle_message(after)
+    # handle_message(after)
+    pass
 
 
 @bot.listen()
 async def on_raw_message_edit(payload: discord.RawMessageUpdateEvent):
-    channel = bot.get_channel(payload.data['channel_id'])
-    if channel is None or (channel.guild is not None and channel.guild.id in IGNORE_SERVERS):
-        return
-    message = await channel.get_message(payload.data['id'])
+    message = bot._connection._get_message(payload.message_id)
+    if message is None:
+        channel = bot.get_channel(int(payload.data['channel_id']))
+        if channel is None or (channel.guild is not None and channel.guild.id in IGNORE_SERVERS):
+            return
+        message = await channel.get_message(payload.message_id)
+        if message is None:
+            return
     handle_message(message)
 
 
