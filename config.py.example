@@ -12,7 +12,8 @@ TOKEN = ''
 # Whether or not we are a bot account.
 # This should be False for user accounts, and True for bot accounts.
 # Defaults to False
-BOT_ACCOUNT = False
+# !! DEPRECATED !!
+# BOT_ACCOUNT = False
 
 # Whether or not to use local time for timestamps.
 # Otherwise, use UTC timestamps.
@@ -42,3 +43,7 @@ AWAY_STATUS = Status.idle
 IGNORE_SERVERS = [
     'server-id',
 ]
+
+# The global command prefix for the bot, if you wish to implement commands.
+# Defaults to "!"
+COMMAND_PREFIX = "!"
